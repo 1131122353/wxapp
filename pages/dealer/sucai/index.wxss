@@ -1,0 +1,31 @@
+.container{
+  display : flex ; 
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  left: 20rpx;
+  top: 15rpx;
+
+}
+.sucai {
+    width: 50%;
+}
+.sucai:not(:nth-child(2n)){
+
+  margin-right: 0rpx;
+}
+.sucai .h4 {
+    font-size: 32rpx;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.sucai .p {
+    font-size: 26rpx;
+    color: #666;
+}
+.sucai-image {
+display: block;
+width: 90%;
+border: 1px solid #ddd;
+}

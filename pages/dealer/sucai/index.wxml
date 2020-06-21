@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="sucai" wx:for="{{list}}" wx:key="this">
+     <navigator hover-class="none" url="../qrcode/qrcode?codeid={{ item.sucai_id }}">
+            <image class="sucai-image" src="{{ item.src }}" mode='widthFix' ></image> 
+     </navigator>
+  </view>
+</view>
