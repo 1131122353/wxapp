@@ -128,8 +128,10 @@
         <!-- 底部操作栏 -->
         <view class="footer-fixed f-30">
           <block wx:if="{{stock_num > 0}}">
-            <view class="order-number" catchtap="onConfirmSubmit" data-type="addCart">加入购物车</view>
-            <view class="order-bt" catchtap="onConfirmSubmit" data-type="buyNow"> 立即购买</view>
+            <!-- <view class="order-number" catchtap="onConfirmSubmit" data-type="addCart">加入购物车</view>
+            <view class="order-bt" catchtap="onConfirmSubmit" data-type="buyNow"> 立即购买</view> -->
+            <view class=".order-number-blue"  catchtap="onConfirmSubmit" data-type="addCart" >采样</view>
+            <view class="order-number" catchtap="onConfirmSubmit" data-type="buyNow">订购</view>
           </block>
           <view class="default-btn" wx:else>暂无现货</view>
         </view>
@@ -196,10 +198,10 @@
     <!-- 底部操作栏 -->
     <view class="footer-fixed f-30">
       <!-- 在线客服 -->
-      <view class="goods-fixed-icon dis-flex flex-x-center flex-y-center">
+      <!-- <view class="goods-fixed-icon dis-flex flex-x-center flex-y-center">
         <button open-type="contact" sessionFrom="weapp" size="27" style="opacity: 0;position:absolute;top:0px;left:0px;display:block;width:100%;height:100%;" type="default-light"></button>
         <text class="iconfont icon-kefu "></text>
-      </view>
+      </view> -->
       <!-- 购物车按钮 -->
       <view catchtap="onTriggerCart" class="goods-fixed-icon">
         <image class="flow-img" src="../../images/flow.png"></image>
@@ -207,8 +209,11 @@
           <text class="">{{cart_total_num}}</text>
         </view>
       </view>
-      <view class="order-number" catchtap="onToggleTrade">加入购物车</view>
-      <view class="order-bt" catchtap="onToggleTrade">立即购买</view>
+      <!-- <view class="order-number" catchtap="onToggleTrade">加入购物车</view>
+      <view class="order-bt" catchtap="onToggleTrade">立即购买</view> -->
+      <view class=".order-number-blue" catchtap="onToggleTrade_cy">采样</view>
+      <view class="order-number" catchtap="onToggleTrade_dg">订购</view>
+      <view class="order-bt" catchtap="addDelivery">加入带货</view>
     </view>
   </view>
 </scroll-view>

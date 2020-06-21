@@ -40,7 +40,7 @@
                 <view class="select-number">
                   <button catchtap="onSubCount" class="default {{ item.total_num > 1 ? '' : 'disabled' }}" data-index="{{index}}" data-sku-id="{{item.goods_sku_id}}" type="default">-</button>
                   <input bindinput="import" disabled="{{true}}" type="number" value="{{item.total_num}}"></input>
-                  <button catchtap="onAddCount" class="default" data-index="{{index}}" data-sku-id="{{item.goods_sku_id}}" type="default">+</button>
+                  <button catchtap="onAddCount" class="default {{ item.total_num > 1 ? '' : 'disabled' }}" data-index="{{index}}" data-sku-id="{{item.goods_sku_id}}" type="default">+</button>
                 </view>
               </view>
               <!-- 删除按钮 -->

@@ -231,6 +231,8 @@ Page({
    * 递增指定的商品数量
    */
   onAddCount(e) {
+    App.showError('采样最多能购买1个');
+    return
     let _this = this,
       index = e.currentTarget.dataset.index,
       goodsSkuId = e.currentTarget.dataset.skuId,

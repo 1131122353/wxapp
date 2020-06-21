@@ -269,6 +269,13 @@
   text-align: center;
   line-height: 92rpx;
 }
+.footer-fixed .order-number-blue {
+  width: 50%;
+  background: linear-gradient(to right, #5590ce 0, #3a8ff9 100%);
+  color: #fff;
+  text-align: center;
+  line-height: 92rpx;
+}
 
 .footer-fixed .order-number button {
   background: none;

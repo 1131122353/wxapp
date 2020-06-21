@@ -76,6 +76,9 @@ Page({
     }, (result) => {
       // 初始化商品详情数据
       let data = _this._initGoodsDetailData(result.data);
+      var min_qty = data.detail.sku[0].min_qty?data.detail.sku[0].min_qty:1;
+      console.log(data.detail.sku[0].min_qty)
+      _this.setData({min_qty:min_qty})
       _this.setData(data);
     });
   },
@@ -150,7 +153,19 @@ Page({
     // 更新商品规格信息
     _this._updateSpecGoods();
   },
-
+  // 加入带货
+  addDelivery(e) {
+    console.log(this.data.goods_id)
+    var goods_id = this.data.goods_id;
+    var user_id = wx.getStorageSync('user_id');
+    App._post_form('cart/delivery', {
+      goods_id: goods_id,
+      user_id: user_id,
+    }, (result) => {
+      App.showSuccess(result.msg);
+      _this.setData(result.data);
+    });
+  },
   /**
    * 更新商品规格信息
    */
@@ -263,6 +278,13 @@ Page({
       return false;
     }
     if (submitType === 'buyNow') {
+      if(this.data.goods_num < this.data.min_qty) {
+        App.showError('最低起订量为'+ this.data.min_qty);
+        this.setData({
+          goods_num:this.data.min_qty
+        })
+        return;
+      }
       // 立即购买
       wx.navigateTo({
         url: '../flow/checkout?' + util.urlEncode({
@@ -277,6 +299,13 @@ Page({
         }
       });
     } else if (submitType === 'addCart') {
+      if(this.data.goods_num > 1) {
+        App.showError('采样最多能购买1个');
+        this.setData({
+          goods_num:1
+        })
+        return;
+      }
       // 加入购物车
       App._post_form('cart/add', {
         goods_id: _this.data.goods_id,
@@ -486,5 +515,28 @@ Page({
       showBottomPopup: !_this.data.showBottomPopup
     });
   },
-
+  // 订购
+  onToggleTrade_dg(e) {
+    let _this = this;
+    this.setData({goods_num:this.data.min_qty})
+    if (typeof e === 'object') {
+      // 记录formId
+      e.detail.hasOwnProperty('formId') && App.saveFormId(e.detail.formId);
+    }
+    _this.setData({
+      showBottomPopup: !_this.data.showBottomPopup
+    });
+  },
+  // 采样
+  onToggleTrade_cy(e) {
+    let _this = this;
+    this.setData({goods_num:1})
+    if (typeof e === 'object') {
+      // 记录formId
+      e.detail.hasOwnProperty('formId') && App.saveFormId(e.detail.formId);
+    }
+    _this.setData({
+      showBottomPopup: !_this.data.showBottomPopup
+    });
+  },
 })
