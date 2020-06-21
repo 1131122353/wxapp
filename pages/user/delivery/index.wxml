@@ -4,32 +4,19 @@
     <custom-li wx:for="{{list}}" wx:for-item="item" wx:key="this">
       <view class="address-header b-f m-top18">
         <view class="flow-header-left pl-12">
-          <view class="flow-checkout-admin">{{item.name}}
-            <text>{{item.phone}}</text>
-          </view>
-          <view class="flow-checkout-address">
-            {{item.region.province}} {{item.region.city}} {{item.region.region}} {{item.detail}}
+          <view class="flow-checkout-admin">商品：{{item.goods_name}}
           </view>
         </view>
       </view>
       <view class="address-list dis-flex b-f">
-        <view class="list address-left">
-          <radio-group bindchange="setDefault" class="radio-group">
-            <label class="radio">
-              <radio checked="{{item.address_id == default_id}}" color="#ff495e" value="{{item.address_id}}"></radio>
-              <text class="cont" wx:if="{{item.address_id == default_id}}">默认</text>
-              <text class="cont" wx:else>选择</text>
-            </label>
-          </radio-group>
-        </view>
         <view class="list address-right dis-flex">
-          <view bindtap="editAddress" data-id="{{item.address_id}}">
+          <view bindtap="onClickShare" report-submit="true" data-goods_id="{{item.goods_id}}">
             <text class="iconfont icon-edit"></text>
-            <text class="title">编辑</text>
+            <text class="title">复制</text>
           </view>
-          <view bindtap="removeAddress" data-id="{{item.address_id}}">
+          <view bindtap="removeDelivery" data-id="{{item.id}}">
             <text class="iconfont icon-lajixiang"></text>
-            <text class="title">删除</text>
+            <text class="title">取消</text>
           </view>
         </view>
       </view>
@@ -38,13 +25,32 @@
   <view wx:else>
     <view class="yoshop-notcont">
       <text class="iconfont icon-wushuju"></text>
-      <text class="cont">亲，您还没有收货列表</text>
+      <text class="cont">亲，您还没有带货列表</text>
     </view>
   </view>
-  <view class="footer-fixed f-32">
-    <view bindtap="createAddress" class="order-bt" style="width:100%">添加新地址</view>
-  </view>
 </view>
+<!-- 分享按钮 -->
+<zan-actionsheet show="{{ share.show }}" actions="{{ share.actions }}" cancel-text="{{ share.cancelText }}" cancel-with-mask="{{ share.cancelWithMask }}" bind:cancel="onCloseShare" bind:actionclick="onClickShareItem" mask-class="tiny" />
+
+<!-- 商品海报 弹出层 -->
+<zan-popup show="{{ share.showPopup }}" bindclose="onTogglePopup">
+  <view class="pop-poster pop-example__container">
+    <!-- 关闭按钮 -->
+    <view class="pop-close dis-flex flex-x-center flex-y-center" catchtap="onTogglePopup">
+      <text class="iconfont icon-shanchu f-30 col-9"></text>
+    </view>
+    <form bindsubmit="onSavePoster" report-submit="true">
+      <view class="poster__image">
+        <image mode="widthFix" src="{{ qrcode }}"></image>
+      </view>
+      <view class="poster__tips m-top10 t-c">
+      </view>
+      <view class="padding-box m-top10 profile-btn">
+        <button formType="submit">保存图片</button>
+      </view>
+    </form>
+  </view>
+</zan-popup>
 
 <!-- 快捷导航 -->
 <shortcut></shortcut>
