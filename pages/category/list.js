@@ -4,7 +4,8 @@ const pageIndex = 'category/list::';
 Page({
   data: {
     scrollHeight: null,
-
+    select: false,
+    tihuoWay: '直播订货',
     showView: false, // 列表显示方式
 
     sortType: 'all', // 排序类型
@@ -17,6 +18,10 @@ Page({
     isLoading: true, // 是否正在加载中
 
     page: 1, // 当前页码
+    
+    marketing: {}, //营销渠道列表
+    marketing_id: 0, //营销渠道id
+    grade_id: null, //等级id
   },
 
   /**
@@ -34,6 +39,13 @@ Page({
     _this.setShowView();
     // 获取商品列表
     _this.getGoodsList();
+    //获取渠道分类列表
+    _this.getMarketingList();
+    var grade_id= wx.getStorageSync('grade_id');
+    this.setData({
+      grade_id: grade_id
+    });
+    console.log(grade_id);
   },
 
   /**
@@ -43,6 +55,57 @@ Page({
     let _this = this;
     _this.setData({
       showView: wx.getStorageSync(pageIndex + 'showView') || false
+    });
+  },
+  addCard(e) {
+    var goods_id = e.currentTarget.dataset.goods_id;
+    var sku_id  = e.currentTarget.dataset.goods_sku_id;
+    console.log(sku_id);
+    App._post_form('cart/add', {
+      goods_id: goods_id,
+      goods_num: 1,
+      goods_sku_id: sku_id,
+    }, (result) => {
+      App.showSuccess(result.msg);
+      _this.setData(result.data);
+    });
+  },
+  addDelivery(e) {
+    var goods_id = e.currentTarget.dataset.goods_id;
+    var user_id = wx.getStorageSync('user_id');
+    App._post_form('cart/delivery', {
+      goods_id: goods_id,
+      user_id: user_id,
+    }, (result) => {
+      App.showSuccess(result.msg);
+      _this.setData(result.data);
+    });
+  },
+  /**
+   * 确认购买弹窗
+   */
+  onToggleTrade(e) {
+    let _this = this;
+    if (typeof e === 'object') {
+      // 记录formId
+      e.detail.hasOwnProperty('formId') && App.saveFormId(e.detail.formId);
+    }
+    _this.setData({
+      showBottomPopup: !_this.data.showBottomPopup
+    });
+  },
+
+  /**
+   * 获取渠道列表
+   */
+  getMarketingList() {
+    let _this = this;
+    App._get('goods/marketing', {}, result => {
+        let marketing = result.data.list.all;
+        _this.setData({
+          marketing: marketing,
+          isLoading: false,
+      });
     });
   },
 
@@ -59,6 +122,7 @@ Page({
       sortPrice: this.data.sortPrice ? 1 : 0,
       category_id: this.data.option.category_id || 0,
       search: this.data.option.search || '',
+      marketing_id:  this.data.marketing_id,
     }, result => {
       let resList = result.data.list,
         dataList = _this.data.list;
@@ -76,6 +140,24 @@ Page({
     });
   },
 
+  //绑定下拉选项
+  bindShowMsg() {
+    this.setData({
+        select:!this.data.select
+    })
+  },
+  mySelect(e) {
+    var name = e.currentTarget.dataset.name
+    var marketing_id = e.currentTarget.dataset.marketing
+    console.log(name);
+    console.log(marketing_id);
+
+    this.setData({
+        tihuoWay: name,
+        select: false,
+        marketing_id: marketing_id,
+    })
+  },
   /**
    * 设置商品列表高度
    */
@@ -97,13 +179,12 @@ Page({
     let _this = this,
       newSortType = e.currentTarget.dataset.type,
       newSortPrice = newSortType === 'price' ? !this.data.sortPrice : true;
-
     this.setData({
       list: {},
       isLoading: true,
       page: 1,
       sortType: newSortType,
-      sortPrice: newSortPrice
+      sortPrice: newSortPrice,
     }, () => {
       // 获取商品列表
       _this.getGoodsList();

@@ -22,6 +22,7 @@ App({
    */
   globalData: {
     user_id: null,
+    grade_id: null,
   },
 
   // api地址
@@ -429,9 +430,10 @@ App({
           signature: e.detail.signature,
           referee_id: wx.getStorageSync('referee_id')
         }, result => {
-          // 记录token user_id
+          // 记录token user_id grade_id 
           wx.setStorageSync('token', result.data.token);
           wx.setStorageSync('user_id', result.data.user_id);
+          wx.setStorageSync('grade_id', result.data.grade_id);
           // 执行回调函数
           callback && callback();
         }, false, () => {

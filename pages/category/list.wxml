@@ -30,6 +30,18 @@
           <text class="iconfont icon-arrow-bottom {{sortPrice?'active':''}}"></text>
         </view>
       </view>
+     
+     <view class='list-msg'>
+        <view class='list-msg2' bindtap='bindShowMsg'>
+            <text>{{tihuoWay}}</text>
+            <image style='height:20rpx;width:20rpx;' src='/images/down.png'></image>
+        </view>
+        <view class="select_box"  wx:if="{{select}}">
+            <view bindtap="switchSortType" wx:for="{{marketing}}" wx:for-item="item"> 
+              <view class="select_one" bindtap="mySelect" data-name="{{item.name}}" data-marketing="{{item.marketing_id}}">{{item.name}}</view>
+            </view>
+          </view>
+      </view>
     </view>
 
     <!-- 商品列表 -->
@@ -61,7 +73,19 @@
                   <text class="goods-price f-30 col-m">￥{{item.goods_sku.goods_price}}</text>
                   <text class="line-price col-9 f-24" wx:if="{{item.goods_sku.line_price>0}}">{{item.goods_sku.line_price}}</text>
                 </view>
+                <!-- 利润 -->
+                <view class="detail-price onelist-hidden">
+                  <text class="goods-price col-m">
+                    <!-- <view wx:if="{{ grade_id > 0}}"> -->
+                      利润：100%-200%
+                  </text>
+                </view>
               </view>
+            </view>
+            <!-- 按钮 -->
+            <view class="detail-price onelist-hidden btn-top">
+              <text class="goods-price f-30 col-c" bindtap="addCard" data-goods_id="{{item.goods_id}}" data-goods_sku_id="{{item.goods_sku.spec_sku_id}}">采样</text>
+              <text class="goods-price f-30 col-j" data-goods_id="{{item.goods_id}}" catchtap="addDelivery">加入带货</text>
             </view>
           </navigator>
         </view>
