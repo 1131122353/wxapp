@@ -1,7 +1,7 @@
 <view class="container" wx:if="{{ isData }}">
 
   <!-- 头部背景图 -->
-  <view class="dealer-bg">
+  <view class="dealer-bg" style="height: 165rpx;background-color: #40bdff;">
     <image mode="widthFix" src="{{ background }}"></image>
   </view>
 
@@ -9,49 +9,41 @@
   <block wx:if="{{ !is_applying }}">
     <view class="dis-flex flex-dir-column flex-y-center">
       <view class="widget-form b-f m-top20 dis-flex flex-dir-column">
-        <view class="form-title f-30">{{ words.apply.words.title.value }}</view>
+        <view class="form-title f-30">请填写申请信息</view>
         <view class="form-box dis-flex flex-dir-column">
           <form bindsubmit="onFormSubmit" report-submit="true">
             <view class="form-field dis-flex flex-y-center">
-              <view class="field-label">邀请人</view>
-              <view class="field-input">
-                <text>{{ referee_name }}（请核对）</text>
+              <view class="field-label">供货商名称</view>
+              <view class="field-input flex-box">
+                <input name="supplier_name" placeholder="请输入供货商名称" value="{{supplier_name}}"></input>
               </view>
             </view>
             <view class="form-field dis-flex flex-y-center">
-              <view class="field-label">姓名</view>
+              <view class="field-label">负责人</view>
               <view class="field-input flex-box">
-                <input name="name" placeholder="请输入真实姓名" value="{{name}}"></input>
+                <input name="supplier_director" placeholder="请输入负责人" value="{{supplier_director}}"></input>
               </view>
             </view>
             <view class="form-field dis-flex flex-y-center">
-              <view class="field-label">手机号</view>
+              <view class="field-label">手机号码</view>
               <view class="field-input flex-box">
-                <input name="mobile" placeholder="请输入手机号" value="{{mobile}}"></input>
-              </view>
-            </view>
-            <view class="form-field dis-flex flex-y-center section">
-              <view class=" field-label">营销渠道</view>
-              <picker class="field-input flex-box" bindchange="bindPickerChange" value="{{index}}" range="{{marketingChannel}}">
-                <view class="picker">
-                  {{marketingIndex}}
-                </view>
-              </picker>
-            </view>
-            <view class="form-field dis-flex flex-y-center">
-              <view class="field-label">直播号</view>
-              <view class="field-input flex-box">
-                <input name="live_number" placeholder="请输入直播号" value="{{live_number}}"></input>
+                <input name="supplier_phone" placeholder="请输入手机号" value="{{supplier_phone}}"></input>
               </view>
             </view>
             <view class="form-field dis-flex flex-y-center">
-              <view class="field-label">粉丝数</view>
+              <view class="field-label">联系地址</view>
               <view class="field-input flex-box">
-                <input name="fans_num" placeholder="请输入粉丝数" value="{{fans_num}}"></input>
+                <input name="supplier_address" placeholder="请输入联系地址" value="{{supplier_address}}"></input>
               </view>
-            </view> 
+            </view>
+            <view class="form-field dis-flex flex-y-center">
+              <view class="field-label">商品简介</view>
+              <view class="field-input flex-box">
+                <input name="comment" placeholder="请输入供货商品简介" value="{{comment}}"></input>
+              </view>
+            </view>
             <!-- 图片列表 -->
-            <!-- <view style="font-size:28rpx;padding: 10rpx 28rpx;color: #808080;">相关图片上传:</view> -->
+            <view style="font-size:28rpx;padding: 10rpx 28rpx;color: #808080;">相关图片上传</view>
             <view class="image-list">
               <view class="image-preview" wx:for="{{imageList}}" wx:for-index="imageIndex" wx:for-item="imagePath" wx:key="this">
                 <text class="image-delete iconfont icon-shanchu" catchtap="deleteImage" data-index="{{index}}" data-image-index="{{imageIndex}}"></text>
@@ -62,17 +54,9 @@
                 <text class="choose__text">上传图片</text>
               </view>
             </view>
-            <!-- 申请协议 -->
-            <view class="form-license dis-flex flex-x-center flex-y-center">
-              <view class="license-radio dis-flex flex-y-center" catchtap="toggleSetRead">
-                <text class="license-icon  {{ is_read ? 'c-violet' : 'col-bb' }} f-38 iconfont icon-radio"></text>
-                <text class="f-28 col-80">我已阅读并了解</text>
-              </view>
-              <text catchtap="toggleApplyLicense" class="f-28 c-violet">【{{ words.apply.words.license.value }}】</text>
-            </view>
             <!-- 立即申请 -->
             <view class="form-submit dis-flex flex-x-center">
-              <button formType="submit" disabled="{{ disabled }}">{{ words.apply.words.submit.value }}</button>
+              <button formType="submit" disabled="{{ disabled }}">提交申请</button>
             </view>
           </form>
         </view>
@@ -85,18 +69,13 @@
   <view wx:if="{{ is_applying }}" class="dealer-boot dis-flex flex-dir-column flex-y-center">
     <view class="boot__msg f-30 dis-flex flex-dir-column flex-y-center">
       <text class="msg__icon iconfont icon-shenhezhong"></text>
-      <text class="msg__content m-top20 f-29 col-80">{{ words.apply.words.wait_audit.value }}</text>
+      <text class="msg__content m-top20 f-29 col-80">申请提交成功</text>
     </view>
     <!-- 去商城逛逛 -->
     <view class="boot__submit form-submit dis-flex flex-x-center">
       <form bindsubmit="navigationToIndex" report-submit="true">
-        <button formType="submit">{{ words.apply.words.goto_mall.value }}</button>
+        <button formType="submit">去商城逛逛</button>
       </form>
-    </view>
-    <!-- 订阅消息通知 -->
-    <view class="boot__submsg" catchtap="onSubMsg">
-        <text class="iconfont icon-iconxx"></text>
-        <text class="f-29">点击订阅消息通知</text>
     </view>
   </view>
 </view>

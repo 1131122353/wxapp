@@ -58,7 +58,8 @@
     "pages/points/log/index",
     "pages/sharp/index/index",
     "pages/sharp/goods/index",
-    "pages/live/index"
+    "pages/live/index",
+    "pages/suppliers/apply/apply"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

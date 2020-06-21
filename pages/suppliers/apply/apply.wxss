@@ -52,7 +52,7 @@ page {
 }
 
 .widget-form .form-box .form-field .field-label {
-  width: 130rpx;
+  width: 140rpx;
   color: #808080;
 }
 
