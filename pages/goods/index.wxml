@@ -24,15 +24,22 @@
             <text class="f-24">{{ detail.selling_point }}</text>
           </view>
           <view class="money-box dis-flex flex-y-center">
-            <!-- 商品价 -->
+            <!-- 市场价 -->
             <view class="goods-price">
-              <text class="col-m f-26">￥</text>
-              <text class="goods-price_num col-m f-40">{{ goods_price }}</text>
+              <text style="display: inline-block;font-size: 30rpx;background-color: red;color: #FFF;padding: 1rpx 4rpx;">市</text>
+              <text class="col-m f-40">￥</text>
+              <text class="goods-price_num col-m f-40">{{ goods_price * 1.5}}</text>
+            </view>
+            <!-- 商品价 -->
+            <view class="goods-price" style="margin-left:30rpx">
+              <text style="display: inline-block;font-size: 30rpx;background-color: #000;color: #FFF;padding: 0rpx 6rpx;">批</text>
+              <text class="col-m f-26" style="color:#000 !important" >￥</text>
+              <text class="goods-price_num col-m f-40" style="color:#000 !important">{{ goods_price }}</text>
             </view>
             <!-- 划线价 -->
-            <view class="line-price" wx:if="{{line_price > 0}}">
+            <!-- <view class="line-price" wx:if="{{line_price > 0}}">
               <text>￥{{ line_price }}</text>
-            </view>
+            </view> -->
             <!-- 会员价标签 -->
             <view wx:if="{{ detail.is_user_grade }}" class="tag-grade-price">
               <text>会员折扣价</text>
@@ -88,8 +95,8 @@
                   <text class="goods-price_num col-m f-40">{{ goods_price }}</text>
                 </view>
                 <!-- 划线价 -->
-                <view class="line-price" wx:if="{{line_price > 0}}">
-                  <text>￥{{ line_price }}</text>
+                <view class="line-price" wx:if="{{ line_price > 0 }}">
+                  <text>￥{{ line_price}}</text>
                 </view>
               </view>
               <view class="goods-stock dis-flex">
