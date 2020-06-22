@@ -482,3 +482,14 @@
 .goods-selling-point {
   color: #f20c59;
 }
+
+.col-l {
+  color: white !important;
+  background-color: #AE0000 ;
+  margin-top: 2%;
+  padding: 7rpx 25rpx;
+  margin-right:0 10rem;
+  font-size: 25rpx;
+  border-radius: 5rpx;
+  margin-right: 10rpx;
+}

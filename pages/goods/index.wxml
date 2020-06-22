@@ -19,20 +19,20 @@
           <view class="goods-title">
             <text class="title f-30 twolist-hidden">{{detail.goods_name}}</text>
           </view>
-          <!-- 商品卖点 -->
-          <view class="goods-selling-point">
-            <text class="f-24">{{ detail.selling_point }}</text>
+          <!-- 标签 -->
+          <view class="goods-selling-point" style="margin-top: 13rpx;">
+            <text class="goods-price f-30 col-l" wx:for="{{detail.label_exp}}" wx:key="list">{{item}}</text>
           </view>
           <view class="money-box dis-flex flex-y-center">
             <!-- 市场价 -->
             <view class="goods-price">
-              <text style="display: inline-block;font-size: 30rpx;background-color: red;color: #FFF;padding: 1rpx 4rpx;">市</text>
+              <text style="display: inline-block;font-size: 27rpx;background-color: red;color: #FFF;padding: 1rpx 4rpx;">市</text>
               <text class="col-m f-40">￥</text>
               <text class="goods-price_num col-m f-40">{{ goods_price * 1.5}}</text>
             </view>
             <!-- 商品价 -->
             <view class="goods-price" style="margin-left:30rpx">
-              <text style="display: inline-block;font-size: 30rpx;background-color: #000;color: #FFF;padding: 0rpx 6rpx;">批</text>
+              <text style="display: inline-block;font-size: 27rpx;background-color: #000;color: #FFF;padding: 0rpx 6rpx;">批</text>
               <text class="col-m f-26" style="color:#000 !important" >￥</text>
               <text class="goods-price_num col-m f-40" style="color:#000 !important">{{ goods_price }}</text>
             </view>

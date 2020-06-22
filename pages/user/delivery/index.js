@@ -20,6 +20,7 @@ Page({
       // 商品海报
       showPopup: false,
     },
+    goods_id: null,
   },
 
   onLoad: function(options) {
@@ -50,8 +51,10 @@ Page({
     wx.showLoading({
       title: '加载中',
     });
+    console.log(_this.data);
     App._get('goods/poster', {
-      goods_id: _this.data.goods_id
+      goods_id: _this.data.goods_id,
+      wxapp_id: 10001,
     }, (result) => {
       _this.setData(result.data, () => {
         _this.onTogglePopup();
@@ -84,7 +87,11 @@ Page({
    */
   onClickShareItem(e) {
     let _this = this;
-    if (e.detail.index === 0) {
+    console.log(e.currentTarget.dataset.goods_id);
+    _this.setData({
+      goods_id: e.currentTarget.dataset.goods_id
+    });
+    if (_this.data.goods_id > 0) {
       // 显示商品海报
       _this._showPoster();
     }
@@ -111,6 +118,7 @@ Page({
    */
   onClickShare(e) {
     let _this = this;
+    this._showPoster;
     // 记录formId
     App.saveFormId(e.currentTarget.dataset.goods_id);
     _this.setData({
@@ -118,29 +126,7 @@ Page({
     });
   },
 
-  /**
-   * 关闭分享选项
-   */
-  onCloseShare() {
-    let _this = this;
-    _this.setData({
-      'share.show': false
-    });
-  },
-
-  /**
-   * 点击生成商品海报
-   */
-  onClickShareItem(e) {
-    let _this = this;
-    if (e.detail.index === 0) {
-      // 显示商品海报
-      _this._showPoster();
-    }
-    _this.onCloseShare();
-  },
-
-  /**
+    /**
    * 切换商品海报
    */
   onTogglePopup() {
@@ -149,23 +135,13 @@ Page({
       'share.showPopup': !_this.data.share.showPopup
     });
   },
-
   /**
-   * 显示商品海报图
+   * 关闭分享选项
    */
-  _showPoster(e) {
+  onCloseShare() {
     let _this = this;
-    wx.showLoading({
-      title: '加载中',
-    });
-    App._get('goods/poster', {
-      goods_id: e.currentTarget.dataset.goods_id
-    }, (result) => {
-      _this.setData(result.data, () => {
-        _this.onTogglePopup();
-      });
-    }, null, () => {
-      wx.hideLoading();
+    _this.setData({
+      'share.show': false
     });
   },
 

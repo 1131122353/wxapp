@@ -157,7 +157,7 @@
 
 .detail-price {
   font-size: 24rpx;
-  display: inline;
+  /* display: inline; */
 }
 
 .detail-price .goods-price {
@@ -243,4 +243,15 @@
   margin-right:0 10rem;
   font-size: 25rpx;
   border-radius: 5rpx;
+  margin-left: 10rpx;
+}
+.col-l {
+  color: white !important;
+  background-color: #AE0000 ;
+  margin-top: 2%;
+  padding: 6rpx 12rpx;
+  margin-right:0 10rem;
+  font-size: 25rpx;
+  border-radius: 5rpx;
+  margin-right: 6rpx;
 }

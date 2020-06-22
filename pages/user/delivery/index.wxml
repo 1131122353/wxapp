@@ -10,7 +10,7 @@
       </view>
       <view class="address-list dis-flex b-f">
         <view class="list address-right dis-flex">
-          <view bindtap="onClickShare" report-submit="true" data-goods_id="{{item.goods_id}}">
+          <view bindtap="onClickShareItem" report-submit="true" data-goods_id="{{item.goods_id}}">
             <text class="iconfont icon-edit"></text>
             <text class="title">复制</text>
           </view>
@@ -29,13 +29,18 @@
     </view>
   </view>
 </view>
+<!-- 返回顶部 -->
+<view catchtap="onScrollTop" class="widget-goTop" wx:if="{{floorstatus}}">
+  <text class="iconfont icon-fanhuidingbu"></text>
+</view>
+
 <!-- 分享按钮 -->
 <zan-actionsheet show="{{ share.show }}" actions="{{ share.actions }}" cancel-text="{{ share.cancelText }}" cancel-with-mask="{{ share.cancelWithMask }}" bind:cancel="onCloseShare" bind:actionclick="onClickShareItem" mask-class="tiny" />
 
 <!-- 商品海报 弹出层 -->
 <zan-popup show="{{ share.showPopup }}" bindclose="onTogglePopup">
   <view class="pop-poster pop-example__container">
-    <!-- 关闭按钮 -->
+    关闭按钮
     <view class="pop-close dis-flex flex-x-center flex-y-center" catchtap="onTogglePopup">
       <text class="iconfont icon-shanchu f-30 col-9"></text>
     </view>
@@ -51,6 +56,3 @@
     </form>
   </view>
 </zan-popup>
-
-<!-- 快捷导航 -->
-<shortcut></shortcut>
